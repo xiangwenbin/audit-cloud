@@ -45,7 +45,7 @@
 * webapp.service 较复杂业务逻辑层 
 
 ## 其他模块 audit-cloud-wap audit-cloud-backend 等
-* 各平台应用子模块，根据需求建立，同 tax-cloud-webapp
+* 各平台应用子模块，根据需求建立，同 audit-cloud-webapp
 
 
 ## 工程测试
