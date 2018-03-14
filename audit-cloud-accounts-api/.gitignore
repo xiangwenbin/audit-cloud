@@ -1,0 +1,14 @@
+﻿#编译目录与IDE配置文件
+/*.iml
+/.idea
+/.externalToolBuilders
+/.vscode
+/.springBeans
+/target
+/bin
+/.settings/
+/logs
+/*.log
+.project
+.classpath
+

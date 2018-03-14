@@ -1,0 +1,169 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>audit-cloud-webapp</artifactId>
+	<packaging>${package.type}</packaging>
+
+	<name>audit-cloud-webapp</name>
+	<url>http://maven.apache.org</url>
+    <parent>
+		<groupId>com.zhonghui</groupId>
+		<artifactId>audit-cloud</artifactId>
+		<relativePath>../</relativePath>
+		<version>${audit-cloud.version}</version>
+	</parent>
+	<properties>
+		
+		
+	</properties>
+	
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.zhonghui</groupId>
+			<artifactId>audit-cloud-core-api</artifactId>
+			<version>${audit-cloud.version}</version>
+		</dependency>
+        <dependency>
+			<groupId>com.zhonghui</groupId>
+			<artifactId>audit-cloud-accounts-api</artifactId>
+			<version>${audit-cloud.version}</version>
+		</dependency>
+        <dependency>
+			<groupId>com.zhonghui</groupId>
+			<artifactId>audit-cloud-template-api</artifactId>
+			<version>${audit-cloud.version}</version>
+		</dependency>
+        
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-data-redis</artifactId>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+        </dependency>
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>docx4j-ImportXHTML</artifactId>
+		    <version>3.3.6</version>
+		    <exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>cn.hutool</groupId>
+		    <artifactId>hutool-all</artifactId>
+		    <version>4.0.1</version>
+		</dependency>
+		
+	</dependencies>
+	
+	<profiles>
+		<profile> <!-- 可以通过 -P ID 来激活 开发环境 -->
+			<id>dev</id>	 <!-- ID 标识符 -->
+			<properties>
+				<env>dev</env>
+				<package.type>jar</package.type>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault> <!-- 默认激活 -->
+			</activation>
+
+		</profile>
+		<profile> <!-- 可以通过 -P ID 来激活 测试环境 -->
+			<id>test</id> <!-- ID 标识符 -->
+			<properties>
+				<env>test</env>
+				<package.type>war</package.type>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<scope>provided</scope>
+					
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile> <!-- 可以通过 -P ID 来激活 线上生成环境 -->
+			<id>production</id> <!-- ID 标识符 -->
+			<properties>
+				<env>production</env>
+				<package.type>war</package.type>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<scope>provided</scope>
+					
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>**/node_modules/**</exclude>
+					<!--排除多余的application-${env}.properties文件 -->
+					<exclude>**/application*.properties</exclude>
+					<exclude>**/public/build/**</exclude>
+					<exclude>**/public/config/**</exclude>
+					<exclude>**/public/src/**</exclude>
+					<exclude>**/public/*.bat</exclude>
+					<exclude>**/public/*.md</exclude>
+					<exclude>**/public/*.json</exclude>
+				</excludes>
+
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<!--只保留application-${env}.properties文件 -->
+				<directory>src/main/resources/config</directory>
+				<includes>
+					<include>**/application.properties</include>
+					<include>**/application-${env}.properties</include>
+				</includes>
+				<targetPath>config</targetPath>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<filters>
+			<!--设置变量${env} -->
+			<filter>src/main/resources/config/application.properties</filter>
+		</filters>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<!-- 忽略web.xml文件,servlet 3.0支持无web.xml的部署方式 -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+
+			<!-- 该插件可让maven 打的jar含依赖包，可通过 java -jar xxx.jar 来启动工程 <plugin> <groupId>org.springframework.boot</groupId> 
+				<artifactId>spring-boot-maven-plugin</artifactId> <version>1.3.6.RELEASE</version> 
+				<executions> <execution> <goals> <goal>repackage</goal> </goals> </execution> 
+				</executions> </plugin> -->
+
+
+		</plugins>
+	</build>
+</project>

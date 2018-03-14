@@ -1,0 +1,170 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>audit-cloud-accounts-service</artifactId>
+	<packaging>${package.type}</packaging>
+	
+	<name>audit-cloud-accounts-service</name>
+	<url>http://maven.apache.org</url>
+    <parent>
+		<groupId>com.zhonghui</groupId>
+		<artifactId>audit-cloud</artifactId>
+		<relativePath>../</relativePath>
+		<version>${audit-cloud.version}</version>
+	</parent>
+	<properties>
+		
+		
+	</properties>
+	
+    <dependencies>
+    	<dependency>
+			<groupId>com.zhonghui</groupId>
+			<artifactId>audit-cloud-accounts-api</artifactId>
+			<version>${audit-cloud.version}</version>
+		</dependency>
+		<dependency>
+	        <groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+	    </dependency>
+	    <dependency>
+             <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		
+		<!-- OSS -->
+		<dependency>
+			<groupId>com.aliyun.oss</groupId>
+			<artifactId>aliyun-sdk-oss</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-push</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<exclusions>  
+	            <exclusion>  
+	                <groupId>org.apache.tomcat</groupId>  
+	                <artifactId>tomcat-jdbc</artifactId>  
+	            </exclusion>  
+	        </exclusions>  
+		</dependency>
+		<dependency>  
+	        <groupId>com.zaxxer</groupId>  
+	        <artifactId>HikariCP</artifactId>
+	    </dependency>
+	    <dependency>
+		    <groupId>cn.hutool</groupId>
+		    <artifactId>hutool-all</artifactId>
+		    <version>4.0.1</version>
+		</dependency>
+    </dependencies>
+	
+	<profiles>
+		<profile> <!-- 可以通过 -P ID 来激活 开发环境 -->
+			<id>dev</id>	 <!-- ID 标识符 -->
+			<properties>
+				<env>dev</env>
+				<package.type>jar</package.type>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault> <!-- 默认激活 -->
+			</activation>
+
+		</profile>
+		<profile> <!-- 可以通过 -P ID 来激活 测试环境 -->
+			<id>test</id> <!-- ID 标识符 -->
+			<properties>
+				<env>test</env>
+				<package.type>war</package.type>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile> <!-- 可以通过 -P ID 来激活 线上生成环境 -->
+			<id>production</id> <!-- ID 标识符 -->
+			<properties>
+				<env>production</env>
+				<package.type>war</package.type>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<scope>provided</scope>
+				</dependency>
+				
+			</dependencies>
+		</profile>
+	</profiles>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<!--排除多余的application-${env}.properties文件 -->
+					<exclude>**/application*.properties</exclude>
+					
+				</excludes>
+
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<!--只保留application-${env}.properties文件 -->
+				<directory>src/main/resources/config</directory>
+				<includes>
+					<include>**/application.properties</include>
+					<include>**/application-${env}.properties</include>
+				</includes>
+				<targetPath>config</targetPath>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<filters>
+			<!--设置变量${env} -->
+			<filter>src/main/resources/config/application.properties</filter>
+		</filters>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<!-- 忽略web.xml文件,servlet 3.0支持无web.xml的部署方式 -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+
+
+		</plugins>
+	</build>
+</project>
