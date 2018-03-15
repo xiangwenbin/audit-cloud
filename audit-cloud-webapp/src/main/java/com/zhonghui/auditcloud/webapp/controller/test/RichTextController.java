@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zhonghui.auditcloud.template.api.model.vo.ResultVo;
 import com.zhonghui.auditcloud.webapp.controller.BaseController;
 import com.zhonghui.auditcloud.webapp.vo.RichTextVo;
+import com.zhonghui.core.model.vo.ResultVo;
 
 @Controller
 @RequestMapping("richtext")

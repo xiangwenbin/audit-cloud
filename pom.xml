@@ -24,6 +24,7 @@
 		<spring-framework.version>5.0.4.RELEASE</spring-framework.version>
         <junit.version>4.11</junit.version>
 		<hibernate.version>4.2.1.Final</hibernate.version>
+		<huitax-core.version>1.0.0-SNAPSHOT</huitax-core.version>
 		<audit-cloud.version>1.0.0-SNAPSHOT</audit-cloud.version>
 	</properties>
 
@@ -105,6 +106,13 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 		 -->
+		 
+		<dependency>
+			<groupId>com.zhonghui</groupId>
+			<artifactId>huitax-core</artifactId>
+			<version>${huitax-core.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhonghui.auditcloud.core.api.service.feign.TestService;
-import com.zhonghui.auditcloud.template.api.model.vo.ResultVo;
 import com.zhonghui.auditcloud.webapp.controller.BaseController;
+import com.zhonghui.core.model.vo.ResultVo;
 
 import cn.hutool.core.io.file.FileReader;
 import cn.hutool.core.util.ZipUtil;

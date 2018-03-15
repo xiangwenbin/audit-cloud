@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zhonghui.auditcloud.core.api.model.vo.ResultVo;
+import com.zhonghui.auditcloud.core.api.model.vo.Test;
 import com.zhonghui.auditcloud.core.api.service.feign.TestService;
 import com.zhonghui.auditcloud.webapp.controller.BaseController;
 import com.zhonghui.auditcloud.webapp.service.test.CacheTestService;

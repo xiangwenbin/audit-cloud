@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zhonghui.auditcloud.core.api.model.vo.ResultVo;
+import com.zhonghui.core.model.vo.ResultVo;
 
 import cn.hutool.core.util.ZipUtil;
-
-
 @Controller
 @RequestMapping("")
 public class TestController extends BaseController {

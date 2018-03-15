@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zhonghui.auditcloud.core.api.model.vo.ResultVo;
+import com.zhonghui.auditcloud.core.api.model.vo.Test;
 import com.zhonghui.auditcloud.core.api.service.feign.TestService;
 
 
@@ -41,7 +41,7 @@ public class IndexController extends BaseController {
 	
 	@RequestMapping(value = { "/feigin/test/{text}" })
     @ResponseBody
-	public ResultVo<String> test(@PathVariable("text") String text) {
+	public Test<String> test(@PathVariable("text") String text) {
 		return testService.getText(text);
 	}
 }

@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.zhonghui.auditcloud.core.api.model.vo.ResultVo;
+import com.zhonghui.auditcloud.core.api.model.vo.Test;
+
 
 
 
@@ -18,7 +19,7 @@ import com.zhonghui.auditcloud.core.api.model.vo.ResultVo;
 public interface TestService {
 
 	@RequestMapping(value = "/test/{text}", method = RequestMethod.GET)
-	ResultVo<String> getText(@PathVariable("text") String text);
+	Test<String> getText(@PathVariable("text") String text);
 	
 	@RequestMapping(value = "/test/spread/save", method = RequestMethod.POST)
 	byte[] spreadSave(@RequestBody byte[] blobData);
