@@ -6,7 +6,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 
 

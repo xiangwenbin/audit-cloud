@@ -3,7 +3,7 @@ package com.zhonghui.auditcloud.webapp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -20,15 +20,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableTransactionManagement
-@EnableFeignClients(basePackages={"com.zhonghui.taxcloud.api.service","com.zhonghui.taxcloud.webapp.service.feign"})
-@ComponentScan(basePackages = { "com.zhonghui.taxcloud" })
+@EnableFeignClients(basePackages={"com.zhonghui.auditcloud.core.api.service","com.zhonghui.auditcloud.accounts.api.service","com.zhonghui.auditcloud.template.api.service","com.zhonghui.auditcloud.webapp.service.feign"})
+@ComponentScan(basePackages = { "com.zhonghui.auditcloud" })
 public class App  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
 	}
-
-	
 
 	
 }
